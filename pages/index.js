@@ -1,9 +1,17 @@
 import Head from 'next/head'
 import Image from 'next/image'
+import { useDispatch } from 'react-redux'
+import { DATA_URL } from '../js/constants/constants'
+import { setJobs } from '../js/redux/slices/jobs/jobsSlice'
 import Jobs from '../src/components/Jobs/Jobs'
 import theme from '../styles/Home.module.css'
 
-export default function Home() {
+export default function Home({jobs}) {
+
+  const dispatch = useDispatch();
+
+  dispatch(setJobs(jobs));
+
   return (
     <div className={theme.container}>
       <Head>
@@ -20,4 +28,16 @@ export default function Home() {
       </footer>
     </div>
   )
+}
+
+export async function getServerSideProps() {
+
+  const response = await fetch(DATA_URL);
+  const data = await response.json();
+
+  return {
+    props: {
+      jobs: data,
+    }
+  }
 }
