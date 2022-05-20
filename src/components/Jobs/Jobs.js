@@ -1,4 +1,5 @@
 import React, { useCallback } from 'react';
+import { useSelector , useDispatch } from 'react-redux';
 import withSwipeItem from '../../../js/HOC/withSwipeItem';
 import JobOpportunity from '../JobOpportunity/JobOpportunity';
 import SwipingList from '../SwipingList/SwipingList';

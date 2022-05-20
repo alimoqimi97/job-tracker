@@ -12,16 +12,10 @@ const SwipingList = ({
   rightContent,
   render
 }) => {
-
+  
   const [data, setData] = useState(rawData);
   const items = useRef(null);
-
-  useEffect(() => {
-    setData(rawData);
-    items.current = makeSwipingListItems(data, swipeRightOptions, swipeLeftOptions,render);
-  }, [data, rawData, render, swipeLeftOptions, swipeRightOptions]);
-
-
+  
   const swipeRightOptions = useCallback((job) => ({
     content: rightContent,
     action: () => onRightSwipe(job)
@@ -32,11 +26,19 @@ const SwipingList = ({
     action: () => onLeftSwipe(job)
   }),[leftContent, onLeftSwipe]);
 
+
+  useEffect(() => {
+    setData(rawData);
+    items.current = makeSwipingListItems(data, swipeRightOptions, swipeLeftOptions,render);
+  }, [data, rawData, render, swipeLeftOptions, swipeRightOptions]);
+
+
+
   return (
     <div className={theme.SwipingList}>
       <SwipeableList>
         {
-          items
+          items.current ? items.current : 'isLoading...'
         }
       </SwipeableList>
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import Image from 'next/dist/client/image';
-import makeFiltersList from '../../../js/lib/functons';
+import { makeFiltersList } from '../../../js/lib/functons';
 import PropTypes from 'prop-types';
 import theme from './JobOpportunity.module.css';
 
