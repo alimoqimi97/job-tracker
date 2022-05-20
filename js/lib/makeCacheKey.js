@@ -2,10 +2,17 @@
 const makeCacheKey = (
     state,
 ) => {
+    
+    const { jobs: { filters } } = state;
+    let cacheKey = '';
 
-    const { candidates: { filters } } = state;
-    const {technology , experienceYears} = filters;
+    
+    for (const key in filters) {
+        filters[key] && (cacheKey += ' ' + key);
+    }
 
-    return technology + ' ' + experienceYears.toString();
+    console.log(cacheKey);
+
+    return cacheKey;
 }
 export default makeCacheKey;

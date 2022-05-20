@@ -6,6 +6,7 @@ export const jobsSlice = createSlice({
     initialState: {
         jobs: [],
         bookmarks: [],
+        likedJobs: [],
         filters: {
             role: '',
             level: '',
@@ -19,17 +20,22 @@ export const jobsSlice = createSlice({
             state.filters = newFilters;
         },
         addToBookmarks: (state,action) => {
-            const bookmarkedId = action.payload;
+            const bookmarked = action.payload;
 
-            state.bookmarks.push(bookmarkedId);
+            state.bookmarks.push(bookmarked);
         },
         setJobs: (state,action) => {
             const allJobs = action.payload;
             state.jobs = allJobs;
+        },
+        addToLikedJobs: (state, action) => {
+            const likedJob = action.payload;
+
+            state.likedJobs.push(likedJob);
         }
     },
 })
 
-export const { setFilters , addToBookmarks} = jobsSlice.actions;
+export const { setFilters , addToBookmarks, setJobs, addToLikedJobs} = jobsSlice.actions;
 
 export default jobsSlice.reducer;

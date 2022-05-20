@@ -16,8 +16,6 @@ const filterJobs = createCachedSelector(
 
         let matchJobs = jobs;
 
-        // const {role , level , languages , tools} = filters;
-
         const findMatchJobs = (jobs, key, value) => {
             const isMatch = job => job[key] === value;
 

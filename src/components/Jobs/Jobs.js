@@ -1,35 +1,37 @@
-import React from 'react';
+import React , {useCallback} from 'react';
+import withSwipeItem from '../../../js/HOC/withSwipeItem';
+import JobOpportunity from '../JobOpportunity/JobOpportunity';
+import SwipingList from '../SwipingList/SwipingList';
 import filterJobs from '../../../js/redux/selectors/jobsSelector';
+import { addToBookmarks, addToLikedJobs } from '../../../js/redux/slices/jobs/jobsSlice';
 import PropTypes from 'prop-types';
-import styles from './Jobs.module.css';
+import theme from './Jobs.module.css';
+
+const SwipeableItem = withSwipeItem(JobOpportunity);
 
 const Jobs = () => {
-  const matchCandidates = useSelector(state => filterJobs(state));
+  const matchJobs = useSelector(state => filterJobs(state));
 
   const dispatch = useDispatch();
 
-  // const rejectCandidate = useCallback((candidate) => {
-  //   dispatch(removeCandidate(candidate.barcode));
-  // }, []);
+  const bookmarkJob = useCallback((job) => {
+    dispatch(addToBookmarks(job));
+  }, []);
 
-  // const acceptCandidate = useCallback((candidate) => {
-  //   dispatch(addToAcceptedCandidates(candidate));
-  // }, []);
-
-  return (
-    <div className="Candidates">
-      {/* <PaginatedTable
-        columns={columns.current}
-        rawData={matchCandidates}
-        handleSwipeRight={rejectCandidate}
-        handleSwipeLeft={acceptCandidate}
-      /> */}
-    </div>
-  );
+  const likeJob = useCallback((job) => {
+    dispatch(addToLikedJobs(job));
+  }, []);
 
   return (
-    <div className={styles.Jobs}>
-      Jobs Component
+    <div className={theme.Jobs}>
+      <SwipingList
+        rawData={matchJobs}
+        render={SwipeableItem}
+        leftContent={<p>bookmark</p>}
+        rightContent={<p>like</p>}
+        onRightSwipe={likeJob}
+        onLeftSwipe={bookmarkJob}
+      />
     </div>
   );
 };
