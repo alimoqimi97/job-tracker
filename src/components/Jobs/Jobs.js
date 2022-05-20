@@ -1,4 +1,4 @@
-import React , {useCallback} from 'react';
+import React, { useCallback } from 'react';
 import withSwipeItem from '../../../js/HOC/withSwipeItem';
 import JobOpportunity from '../JobOpportunity/JobOpportunity';
 import SwipingList from '../SwipingList/SwipingList';
@@ -22,11 +22,16 @@ const Jobs = () => {
     dispatch(addToLikedJobs(job));
   }, []);
 
+  const renderItem = useCallback(
+    props => <SwipeableItem {...props} />
+    , []
+  );
+
   return (
     <div className={theme.Jobs}>
       <SwipingList
         rawData={matchJobs}
-        render={SwipeableItem}
+        render={renderItem}
         leftContent={<p>bookmark</p>}
         rightContent={<p>like</p>}
         onRightSwipe={likeJob}

@@ -18,8 +18,8 @@ const SwipingList = ({
 
   useEffect(() => {
     setData(rawData);
-    items.current = makeSwipingListItems(data, swipeRightOptions, swipeLeftOptions);
-  }, [data, rawData, swipeLeftOptions, swipeRightOptions]);
+    items.current = makeSwipingListItems(data, swipeRightOptions, swipeLeftOptions,render);
+  }, [data, rawData, render, swipeLeftOptions, swipeRightOptions]);
 
 
   const swipeRightOptions = useCallback((job) => ({

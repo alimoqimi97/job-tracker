@@ -1,4 +1,3 @@
-import SwipeableItem from "../../src/components/SwipeableItem/SwipeableItem";
 
 export const makeFiltersList = (filters) => filters.map(
     (
@@ -17,8 +16,9 @@ export const makeFiltersList = (filters) => filters.map(
 export const makeSwipingListItems = (
     data,
     swipeRightOptions,
-    swipeLeftOptions
-) => data.map( element => {
+    swipeLeftOptions,
+    renderItem
+) => data.map(element => {
 
     const itemProps = {
         data: element,
@@ -35,12 +35,7 @@ export const makeSwipingListItems = (
     };
 
     return (
-        <SwipeableItem
-            key={element.id}
-            {
-            ...swipeableItemProps
-            }
-        />
+        renderItem(swipeableItemProps)
     )
 });
 
