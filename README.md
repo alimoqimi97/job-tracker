@@ -6,7 +6,7 @@ This is a solution to the [Job listings with filtering challenge on Frontend Men
 
 - [Overview](#overview)
   - [The challenge](#the-challenge)
-  - [Screenshot](#screenshot)
+  <!-- - [Screenshot](#screenshot) -->
   - [Links](#links)
 - [My process](#my-process)
   - [Built with](#built-with)
@@ -14,7 +14,6 @@ This is a solution to the [Job listings with filtering challenge on Frontend Men
   - [Continued development](#continued-development)
   - [Useful resources](#useful-resources)
 - [Author](#author)
-- [Acknowledgments](#acknowledgments)
 
 
 ## Overview
@@ -49,54 +48,93 @@ Add a screenshot of your solution. The easiest way to do this is to use Firefox 
 - React-redux
 - [Tailwindcss](https://tailwindcss.com/) - CSS framework
 - [Next.js](https://nextjs.org/) - React framework
+- [json-server](https://www.npmjs.com/package/json-server) - fake REST API for front-end developers.
 
 ### What I learned
 
-Use this section to recap over some of your major learnings while working through this project. Writing these out and providing code samples of areas you want to highlight is a great way to reinforce your own knowledge.
+According to large amount of data for showing and filtering, also implementing corresponding UI by tailwindcss; I learned how to filter data that have big size with minimum re-rendering of components by using reselect and re-reselect libraries when working with redux.
+further, I learned data fetching featurs of nextjs such getStaticProps and getServerSideProps (,...) and worked with them.
+for implementing UI, I selected tailwindcss for have more flexibility to implementing it.
 
-To see how you can add code snippets, see below:
+```js
+export async function getServerSideProps() {
 
-```html
-<h1>Some HTML code I'm proud of</h1>
-```
-```css
-.proud-of-this-css {
-  color: papayawhip;
+  const response = await fetch(DATA_URL);
+  const data = await response.json();
+
+  return {
+    props: {
+      jobs: data,
+    }
+  }
 }
 ```
 ```js
-const proudOfThisFunc = () => {
-  console.log('🎉')
+const makeCacheKey = (
+    state,
+) => {
+    
+    const { jobs: { filters } } = state;
+    let cacheKey = '';
+
+    
+    for (const key in filters) {
+        filters[key] && (cacheKey += ' ' + key);
+    }
+
+    return cacheKey;
 }
 ```
+```js
+const filterJobs = createCachedSelector(
+    [
+        getJobs,
+        getFilters
+    ],
+    (
+        jobs,
+        filters,
+    ) => {
 
-If you want more help with writing markdown, we'd recommend checking out [The Markdown Guide](https://www.markdownguide.org/) to learn more.
+        let matchJobs = jobs;
 
-**Note: Delete this note and the content within this section and replace with your own learnings.**
+        const findMatchJobs = (jobs, key, value) => {
+            let isMatch = job => job[key] === value;
+            
+            if(typeof value === Array){
+                isMatch = job => job[key].every(element => value.includes(element));
+            }
 
+            const filteredJobs = jobs.filter(isMatch);
+
+            return filteredJobs;
+        }
+
+        for (const key in filters) {
+            const filterValue = filters[key];
+
+            console.log(typeof filterValue === Array);
+
+            filterValue && (matchJobs = findMatchJobs(matchJobs, key, filterValue));
+        }
+
+        return matchJobs;
+    }
+)(
+    makeCacheKey
+);
+```
 ### Continued development
 
-Use this section to outline areas that you want to continue focusing on in future projects. These could be concepts you're still not completely comfortable with or techniques you found useful that you want to refine and perfect.
-
-**Note: Delete this note and the content within this section and replace with your own plans for continued development.**
+To continue developing, I will add 'employer' section to this project for finding their desired developers. in this section, list of all matched developers that filtered by technology and experience of years will show to them and they will offer them.(and any other idea in future...)
 
 ### Useful resources
 
-- [Example resource 1](https://www.example.com) - This helped me for XYZ reason. I really liked this pattern and will use it going forward.
-- [Example resource 2](https://www.example.com) - This is an amazing article which helped me finally understand XYZ. I'd recommend it to anyone still learning this concept.
-
-**Note: Delete this note and replace the list above with resources that helped you during the challenge. These could come in handy for anyone viewing your solution or for yourself when you look back on this project in the future.**
+- [improving performance with re-reselect](https://blog.logrocket.com/react-re-reselect-better-memoization-cache-management/) - This helped me to understanding problem of reselect and solving it with re-reselect. I really liked this article and recommand it to you.
+- [Reselect](https://redux.js.org/usage/deriving-data-selectors) - This is an amazing article which helped me finally understand reselect. I'd recommend it to anyone still learning this concept.
 
 ## Author
 
-- Website - [Add your name here](https://www.your-site.com)
-- Frontend Mentor - [@yourusername](https://www.frontendmentor.io/profile/yourusername)
-- Twitter - [@yourusername](https://www.twitter.com/yourusername)
-
-**Note: Delete this note and add/remove/edit lines above based on what links you'd like to share.**
-
-## Acknowledgments
-
-This is where you can give a hat tip to anyone who helped you out on this project. Perhaps you worked in a team or got some inspiration from someone else's solution. This is the perfect place to give them some credit.
-
-**Note: Delete this note and edit this section's content as necessary. If you completed this challenge by yourself, feel free to delete this section entirely.**
+- Resume - [Ali Moghimi](https://cvbuilder.me/Resume/fa/6479e813-4612-4b05-830d-4b23f77d9502?template=template26)
+- GitHub - [ali moghimi](https://github.com/alimoqimi97)
+- LinkedIn - [alimoqimi97](https://www.linkedin.com/in/ali-moghimi-842464174)
