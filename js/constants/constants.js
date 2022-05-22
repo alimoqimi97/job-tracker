@@ -1,4 +1,6 @@
 
 const port = 3000;
 
-export const DATA_URL = `http://localhost:${port}/data`;
+const DATA_URL = `http://localhost:${port}/data`;
+
+export default DATA_URL;

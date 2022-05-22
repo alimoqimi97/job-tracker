@@ -1,3 +1,4 @@
+import React from "react";
 import { SwipeableListItem } from "@sandstreamdev/react-swipeable-list";
 
 const withSwipeItem = Item => {

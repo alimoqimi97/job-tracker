@@ -1,10 +1,8 @@
 import Head from 'next/head'
-import Image from 'next/image'
-import { useEffect } from 'react'
+import React , { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
-import { DATA_URL } from '../js/constants/constants'
+import DATA_URL from '../js/constants/constants';
 import { setJobs } from '../js/redux/slices/jobs/jobsSlice'
-import JobOpportunity from '../src/components/JobOpportunity/JobOpportunity'
 import Jobs from '../src/components/Jobs/Jobs'
 import theme from '../styles/Home.module.css'
 
@@ -27,7 +25,6 @@ function Home({jobs}) {
 
       <main className={theme.main}>
         <Jobs />
-        {/* <JobOpportunity {...jobs[0]} /> */}
       </main>
 
       <footer className={theme.footer}>
