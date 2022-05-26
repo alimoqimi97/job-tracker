@@ -4,6 +4,10 @@ import { makeFiltersList } from '../../../js/lib/functons';
 import PropTypes from 'prop-types';
 import theme from './JobOpportunity.module.css';
 
+const loadImage = ({ src, width, quality }) => {
+  return `${src}`;
+}
+
 const JobOpportunity = ({
   company,
   logo,
@@ -21,7 +25,10 @@ const JobOpportunity = ({
 
   const jobTitle = `${level} ${position}`;
 
-  const filters = [role, level, ...languages, ...tools];
+  const imageSrc = logo.split('//');
+  let tmp = imageSrc[1].split('/').pop();
+
+  const filters = tools && languages && [role, level, ...languages, ...tools];
 
   const filtersList = makeFiltersList(filters);
 
@@ -30,6 +37,7 @@ const JobOpportunity = ({
   return (
     <div className={theme.JobOpportunity}>
       <Image
+        loader={loadImage}
         src={logo}
         alt={`${company} image`}
         width='20px'

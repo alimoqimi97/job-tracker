@@ -19,15 +19,13 @@ const filterJobs = createCachedSelector(
         const findMatchJobs = (jobs, key, value) => {
             let isMatch = job => job[key] === value;
             
-            // console.log(key);
-            // console.log(value);
-            // console.log(typeof value);
-
-            if(typeof value === Array){
+            if(Array.isArray(value)){
                 isMatch = job => job[key].every(element => value.includes(element));
             }
 
             const filteredJobs = jobs.filter(isMatch);
+            
+            console.log(filteredJobs);
 
             return filteredJobs;
         }
@@ -35,9 +33,7 @@ const filterJobs = createCachedSelector(
         for (const key in filters) {
             const filterValue = filters[key];
 
-            console.log(typeof filterValue === Array);
-
-            filterValue && (matchJobs = findMatchJobs(matchJobs, key, filterValue));
+            filterValue && filterValue.length && (matchJobs = findMatchJobs(matchJobs, key, filterValue));
         }
 
         return matchJobs;

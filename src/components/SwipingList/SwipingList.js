@@ -11,6 +11,9 @@ import { makeSwipingListItems } from '../../../js/lib/functons';
 import PropTypes from 'prop-types';
 import theme from './SwipingList.module.css';
 
+import { SwipeableListItem } from '@sandstreamdev/react-swipeable-list';
+import JobOpportunity from '../JobOpportunity/JobOpportunity';
+
 const SwipingList = ({
   rawData,
   onLeftSwipe,
@@ -36,16 +39,42 @@ const SwipingList = ({
 
   useEffect(() => {
     setData(rawData);
-    items.current = makeSwipingListItems(data, swipeRightOptions, swipeLeftOptions, render);
-  }, [data, rawData, render, swipeLeftOptions, swipeRightOptions]);
+    items.current = makeSwipingListItems(
+      data,
+      swipeRightOptions,
+      swipeLeftOptions,
+      render
+    );
+
+  },
+    [
+      data,
+      rawData,
+      render,
+      swipeLeftOptions,
+      swipeRightOptions
+    ]);
 
 
   return (
     <div className={theme.SwipingList}>
       <SwipeableList>
         {
-          items.current.length > 0 ? items.current : <h1>Loading...</h1>
+          data.map((element) => (
+            <SwipeableListItem
+              key={element.id}
+              swipeLeft={swipeLeftOptions(element)}
+              swipeRight={swipeRightOptions(element)}
+            >
+              <JobOpportunity 
+                {...element}
+              />
+            </SwipeableListItem>
+          ))
         }
+        {/* {
+          items.current.length > 0 ? items.current : <h1>Loading...</h1>
+        } */}
       </SwipeableList>
 
     </div>

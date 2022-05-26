@@ -11,8 +11,6 @@ const makeCacheKey = (
         filters[key] && (cacheKey += ' ' + key);
     }
 
-    console.log(cacheKey);
-
     return cacheKey;
 }
 export default makeCacheKey;

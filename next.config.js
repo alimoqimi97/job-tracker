@@ -2,7 +2,8 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    domains: ['http://dummyimage.com']
+    domains: ['dummyimage.com'],
+    // formats: ['png']
   }
 }
 
