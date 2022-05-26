@@ -1,1 +1,3 @@
-.JobOpportunity {}
+.JobOpportunity {
+    @apply border-solid border-slate-50 border-2 bg-white;
+}

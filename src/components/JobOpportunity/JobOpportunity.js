@@ -25,9 +25,6 @@ const JobOpportunity = ({
 
   const jobTitle = `${level} ${position}`;
 
-  const imageSrc = logo.split('//');
-  let tmp = imageSrc[1].split('/').pop();
-
   const filters = tools && languages && [role, level, ...languages, ...tools];
 
   const filtersList = makeFiltersList(filters);
@@ -43,11 +40,29 @@ const JobOpportunity = ({
         width='20px'
         height='20px'
       />
-      <h3>{company}</h3>
-      {isNew && <span>New!</span>}
-      <h2>{jobTitle}</h2>
-      <p>{moreInfo}</p>
-      <ul>{filtersList}</ul>
+      <h3>
+        {
+          company
+        }
+      </h3>
+      {
+        isNew && <span>New!</span>
+      }
+      <h2>
+        {
+          jobTitle
+        }
+      </h2>
+      <p>
+        {
+          moreInfo
+        }
+      </p>
+      <ul>
+        {
+          filtersList
+        }
+      </ul>
     </div>
   );
 };
