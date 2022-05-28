@@ -30,13 +30,15 @@ const JobOpportunity = ({
 
   return (
     <div className={theme.JobOpportunity}>
-      <Image
-        loader={loadImage}
-        src={logo}
-        alt={`${company} image`}
-        width='20px'
-        height='20px'
-      />
+      <div className='rounded-full w-5'>
+        <Image
+          loader={loadImage}
+          src={logo}
+          alt={`${company} image`}
+          width='20px'
+          height='20px'
+        />
+      </div>
       <div>
         <h3>
           {
