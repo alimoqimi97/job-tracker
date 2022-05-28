@@ -10,6 +10,7 @@ import { SwipeableList } from '@sandstreamdev/react-swipeable-list';
 import { makeSwipingListItems } from '../../../js/lib/functons';
 import PropTypes from 'prop-types';
 import theme from './SwipingList.module.css';
+import '@sandstreamdev/react-swipeable-list/dist/styles.css';
 
 import { SwipeableListItem } from '@sandstreamdev/react-swipeable-list';
 import JobOpportunity from '../JobOpportunity/JobOpportunity';

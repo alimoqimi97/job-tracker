@@ -1,1 +1,7 @@
-.SwipingList {}
+.SwipingList {
+    width: 100%;
+    margin: 24px 0;
+    outline-color: gray;
+    outline-style: solid;
+    outline-width: 1px 0;
+}

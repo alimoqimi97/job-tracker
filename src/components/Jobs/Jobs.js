@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect } from 'react';
-import { useSelector , useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import withSwipeItem from '../../../js/HOC/withSwipeItem';
 import JobOpportunity from '../JobOpportunity/JobOpportunity';
 import SwipingList from '../SwipingList/SwipingList';
@@ -29,7 +29,7 @@ const Jobs = () => {
   );
 
   return (
-    <div className={theme.Jobs}>
+    <>
       <SwipingList
         rawData={matchJobs}
         render={renderItem}
@@ -38,7 +38,7 @@ const Jobs = () => {
         onRightSwipe={likeJob}
         onLeftSwipe={bookmarkJob}
       />
-    </div>
+    </>
   );
 };
 

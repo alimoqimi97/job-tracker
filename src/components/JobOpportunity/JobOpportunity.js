@@ -1,12 +1,9 @@
 import React from 'react';
 import Image from 'next/dist/client/image';
 import { makeFiltersList } from '../../../js/lib/functons';
+import { loadImage } from '../../../js/lib/functons';
 import PropTypes from 'prop-types';
 import theme from './JobOpportunity.module.css';
-
-const loadImage = ({ src, width, quality }) => {
-  return `${src}`;
-}
 
 const JobOpportunity = ({
   company,
@@ -40,24 +37,26 @@ const JobOpportunity = ({
         width='20px'
         height='20px'
       />
-      <h3>
+      <div>
+        <h3>
+          {
+            company
+          }
+        </h3>
         {
-          company
+          isNew && <span>New!</span>
         }
-      </h3>
-      {
-        isNew && <span>New!</span>
-      }
-      <h2>
-        {
-          jobTitle
-        }
-      </h2>
-      <p>
-        {
-          moreInfo
-        }
-      </p>
+        <h2>
+          {
+            jobTitle
+          }
+        </h2>
+        <p>
+          {
+            moreInfo
+          }
+        </p>
+      </div>
       <ul>
         {
           filtersList
