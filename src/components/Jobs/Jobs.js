@@ -34,7 +34,7 @@ const Jobs = () => {
         rawData={matchJobs}
         render={renderItem}
         leftContent={<p>bookmark</p>}
-        rightContent={<p>like</p>}
+        rightContent={<p>apply</p>}
         onRightSwipe={likeJob}
         onLeftSwipe={bookmarkJob}
       />

@@ -1,5 +1,5 @@
 import React from 'react';
-import Image from 'next/dist/client/image';
+import Image from 'next/image';
 import { makeFiltersList } from '../../../js/lib/functons';
 import { loadImage } from '../../../js/lib/functons';
 import PropTypes from 'prop-types';
@@ -30,13 +30,15 @@ const JobOpportunity = ({
 
   return (
     <div className={theme.JobOpportunity}>
-      <div className='rounded-full w-5'>
+      <div className='rounded-full w-40'>
         <Image
           loader={loadImage}
           src={logo}
+          className='rounded-full mx-auto'
           alt={`${company} image`}
-          width='20px'
-          height='20px'
+          width='80%'
+          height='80%'
+          objectFit="cover"
         />
       </div>
       <div>
