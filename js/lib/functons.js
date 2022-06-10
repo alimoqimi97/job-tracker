@@ -41,5 +41,5 @@ export const makeSwipingListItems = (
 
 export const loadImage = ({ src, width, quality }) => {
     return `${src}`;
-  }
+}
   

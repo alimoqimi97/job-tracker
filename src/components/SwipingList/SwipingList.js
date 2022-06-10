@@ -6,14 +6,14 @@ import React,
   useRef,
   useState
 } from 'react';
+import JobOpportunity from '../JobOpportunity/JobOpportunity';
+import { SwipeableListItem } from '@sandstreamdev/react-swipeable-list';
 import { SwipeableList } from '@sandstreamdev/react-swipeable-list';
 import { makeSwipingListItems } from '../../../js/lib/functons';
 import PropTypes from 'prop-types';
 import theme from './SwipingList.module.css';
 import '@sandstreamdev/react-swipeable-list/dist/styles.css';
 
-import { SwipeableListItem } from '@sandstreamdev/react-swipeable-list';
-import JobOpportunity from '../JobOpportunity/JobOpportunity';
 
 const SwipingList = ({
   rawData,
@@ -25,7 +25,7 @@ const SwipingList = ({
 }) => {
 
   const [data, setData] = useState(rawData);
-  const items = useRef([]);
+  // const items = useRef([]);
 
   const swipeRightOptions = useCallback((job) => ({
     content: rightContent,
@@ -40,12 +40,12 @@ const SwipingList = ({
 
   useEffect(() => {
     setData(rawData);
-    items.current = makeSwipingListItems(
-      data,
-      swipeRightOptions,
-      swipeLeftOptions,
-      render
-    );
+    // items.current = makeSwipingListItems(
+    //   data,
+    //   swipeRightOptions,
+    //   swipeLeftOptions,
+    //   render
+    // );
 
   },
     [
@@ -56,22 +56,31 @@ const SwipingList = ({
       swipeRightOptions
     ]);
 
+  const makeSwipeableList = () => (
+    <div className='flex flex-col gap-4'>
+      {
+        data.map((element) => (
+          <SwipeableListItem
+            key={element.id}
+            swipeLeft={swipeLeftOptions(element)}
+            swipeRight={swipeRightOptions(element)}
+          >
+            <JobOpportunity
+              {...element}
+            />
+          </SwipeableListItem>
+        ))
+      }
+    </div>
+  );
+
+  const list = makeSwipeableList();
 
   return (
     <div className={theme.SwipingList}>
       <SwipeableList>
         {
-          data.map((element) => (
-            <SwipeableListItem
-              key={element.id}
-              swipeLeft={swipeLeftOptions(element)}
-              swipeRight={swipeRightOptions(element)}
-            >
-              <JobOpportunity 
-                {...element}
-              />
-            </SwipeableListItem>
-          ))
+          list
         }
         {/* {
           items.current.length > 0 ? items.current : <h1>Loading...</h1>

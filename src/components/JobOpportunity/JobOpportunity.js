@@ -1,9 +1,8 @@
 import React from 'react';
-import Image from 'next/image';
 import { makeFiltersList } from '../../../js/lib/functons';
-import { loadImage } from '../../../js/lib/functons';
 import PropTypes from 'prop-types';
 import theme from './JobOpportunity.module.css';
+import CompanyLogo from '../CompanyLogo/CompanyLogo';
 
 const JobOpportunity = ({
   company,
@@ -30,7 +29,8 @@ const JobOpportunity = ({
 
   return (
     <div className={theme.JobOpportunity}>
-      <div className='rounded-full w-40'>
+      <CompanyLogo logo={logo} alt={`${company} image`} />
+      {/* <div className='rounded-full w-40'>
         <Image
           loader={loadImage}
           src={logo}
@@ -40,7 +40,7 @@ const JobOpportunity = ({
           height='80%'
           objectFit="cover"
         />
-      </div>
+      </div> */}
       <div>
         <h3>
           {
