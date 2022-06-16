@@ -3,6 +3,7 @@ import React,
   memo,
   useCallback,
   useEffect,
+  useMemo,
   useRef,
   useState
 } from 'react';
@@ -13,6 +14,7 @@ import { makeSwipingListItems } from '../../../js/lib/functons';
 import PropTypes from 'prop-types';
 import theme from './SwipingList.module.css';
 import '@sandstreamdev/react-swipeable-list/dist/styles.css';
+import styles from './SwipingList.module.css';
 
 
 const SwipingList = ({
@@ -25,7 +27,7 @@ const SwipingList = ({
 }) => {
 
   const [data, setData] = useState(rawData);
-  // const items = useRef([]);
+  const items = useRef([]);
 
   const swipeRightOptions = useCallback((job) => ({
     content: rightContent,
@@ -40,13 +42,12 @@ const SwipingList = ({
 
   useEffect(() => {
     setData(rawData);
-    // items.current = makeSwipingListItems(
-    //   data,
-    //   swipeRightOptions,
-    //   swipeLeftOptions,
-    //   render
-    // );
-
+    items.current = makeSwipingListItems(
+      data,
+      swipeRightOptions,
+      swipeLeftOptions,
+      render
+    );
   },
     [
       data,
@@ -56,31 +57,47 @@ const SwipingList = ({
       swipeRightOptions
     ]);
 
-  const makeSwipeableList = () => (
-    <div className='flex flex-col gap-4'>
+  const makeSwipeableList = (itemsData) => (
+    <div
+      className={styles.ListContainer}
+    //  className='flex flex-col gap-4'
+    >
       {
-        data.map((element) => (
-          <SwipeableListItem
-            key={element.id}
-            swipeLeft={swipeLeftOptions(element)}
-            swipeRight={swipeRightOptions(element)}
-          >
-            <JobOpportunity
-              {...element}
-            />
-          </SwipeableListItem>
+        itemsData.length > 0 &&
+        itemsData.map((element) => (
+          <div className='shadow-lg'>
+            <SwipeableListItem
+              key={element.id}
+              swipeLeft={swipeLeftOptions(element)}
+              swipeRight={swipeRightOptions(element)}
+            >
+              <JobOpportunity
+                {...element}
+              />
+            </SwipeableListItem>
+          </div>
         ))
       }
     </div>
   );
 
-  const list = makeSwipeableList();
+  const list = useMemo(
+    () => {
+      console.log(data);
+      makeSwipeableList(data);
+    }
+    , [data]
+  );
+
+  // const list = makeSwipeableList(data);
 
   return (
     <div className={theme.SwipingList}>
       <SwipeableList>
         {
-          list
+          makeSwipeableList(data)
+          // list
+          // list.length > 0 ? list : <h1>Loading...</h1>
         }
         {/* {
           items.current.length > 0 ? items.current : <h1>Loading...</h1>

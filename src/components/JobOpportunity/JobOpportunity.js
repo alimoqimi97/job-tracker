@@ -3,12 +3,14 @@ import { makeFiltersList } from '../../../js/lib/functons';
 import PropTypes from 'prop-types';
 import theme from './JobOpportunity.module.css';
 import CompanyLogo from '../CompanyLogo/CompanyLogo';
+import JobDetails from '../JobDetails/JobDetails';
+import FilterLabels from '../FilterLabels/FilterLabels';
 
 const JobOpportunity = ({
   company,
   logo,
   new: isNew,
-  featured,
+  isFeatured,
   position,
   level,
   postedAt,
@@ -27,45 +29,35 @@ const JobOpportunity = ({
 
   const moreInfo = `${postedAt} . ${contract} . ${location}`;
 
+  const imageAlternativeText = `${company} image`;
+
+  const filterLabelsProps = {
+    filtersList
+  };
+
+  const jobDetailsProps = {
+    isNew,
+    isFeatured,
+    jobTitle,
+    moreInfo
+  }
   return (
     <div className={theme.JobOpportunity}>
-      <CompanyLogo logo={logo} alt={`${company} image`} />
-      {/* <div className='rounded-full w-40'>
-        <Image
-          loader={loadImage}
-          src={logo}
-          className='rounded-full mx-auto'
-          alt={`${company} image`}
-          width='80%'
-          height='80%'
-          objectFit="cover"
-        />
-      </div> */}
-      <div>
-        <h3>
-          {
-            company
-          }
-        </h3>
+      <CompanyLogo
+        logo={logo}
+        alt={imageAlternativeText}
+      />
+      <JobDetails
+        companyName={company}
         {
-          isNew && <span>New!</span>
+        ...jobDetailsProps
         }
-        <h2>
-          {
-            jobTitle
-          }
-        </h2>
-        <p>
-          {
-            moreInfo
-          }
-        </p>
-      </div>
-      <ul>
+      />
+      <FilterLabels
         {
-          filtersList
+          ...filterLabelsProps
         }
-      </ul>
+      />
     </div>
   );
 };

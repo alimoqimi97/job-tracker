@@ -1,0 +1,7 @@
+.FilterLabels {
+    @apply flex items-center;
+}
+
+.FilterLabels ul {
+    @apply flex gap-3 items-center align-baseline;
+}
